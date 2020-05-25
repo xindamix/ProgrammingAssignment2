@@ -74,39 +74,51 @@ Write the following functions:
 
 1.  `makeCacheMatrix`: This function creates a special "matrix" object
     that can cache its inverse.
-    <!-- -->
-    `makeCacheMatrix <- function(m = matrix()) {
-        m <- NULL
-        set <- function(y) {
-                x <<- y
-                m <<- NULL
-        }
-        get <- function() x
-        setinverse <- function(inverse) m <<- inverse
-        getinverse <- function() m
-        list(set = set, get = get,
-             setmean = setinverse,
-             getmean = getinverse)
-}`
     
+The function, `makeCacheMatrix` creates a special "vector", which is
+really a list containing a function to
+
+1.  set the value of the matrix
+2.  get the value of the matrix
+3.  set the value of the inverse
+4.  get the value of the inverse
+
+<!-- -->
+
+    makeCacheMatrix <- function(x = numeric()) {
+            i <- NULL
+            set <- function(y) {
+                    x <<- y
+                    i <<- NULL
+            }
+            get <- function() x
+            setinverse <- function(inverse) i <<- inverse
+            getinverse <- function() i
+            list(set = set, get = get,
+                 setinverse = setinverse,
+                 getinverse = getinverse)
+    }
+ 
         
 2.  `cacheSolve`: This function computes the inverse of the special
     "matrix" returned by `makeCacheMatrix` above. If the inverse has
     already been calculated (and the matrix has not changed), then
     `cacheSolve` should retrieve the inverse from the cache.
+.
 
-    <!-- -->
     cacheSolve <- function(x, ...) {
-        m <- x$getinverse()
-        if(!is.null(m)) {
-                message("getting cached data")
-                return(m)
-        }
-        data <- x$get()
-        m <- inverse(data, ...)
-        x$setinverse(m)
-        m
-}
+            i <- x$getinverse()
+            if(!is.null(i)) {
+                    message("getting cached data")
+                    return(i)
+            }
+            data <- x$get()
+            i <- inverse(data, ...)
+            x$setinverse(i)
+            i
+    }
+
+
 
 Computing the inverse of a square matrix can be done with the `solve`
 function in R. For example, if `X` is a square invertible matrix, then
