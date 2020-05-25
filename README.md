@@ -104,7 +104,13 @@ really a list containing a function to
     "matrix" returned by `makeCacheMatrix` above. If the inverse has
     already been calculated (and the matrix has not changed), then
     `cacheSolve` should retrieve the inverse from the cache.
-.
+    
+The following function calculates the inverse of the special "matrix"
+created with the above function. However, it first checks to see if the
+inverse has already been calculated. If so, it `get`s the inverse from the
+cache and skips the computation. Otherwise, it calculates the inverse of
+the data and sets the value of the inverse in the cache via the `setinverse`
+function.
 
     cacheSolve <- function(x, ...) {
             i <- x$getinverse()
@@ -113,12 +119,12 @@ really a list containing a function to
                     return(i)
             }
             data <- x$get()
-            i <- inverse(data, ...)
+            i <- mean(data, ...)
             x$setinverse(i)
             i
     }
 
-
+### Assignment: Complete
 
 Computing the inverse of a square matrix can be done with the `solve`
 function in R. For example, if `X` is a square invertible matrix, then
