@@ -75,7 +75,7 @@ Write the following functions:
 1.  `makeCacheMatrix`: This function creates a special "matrix" object
     that can cache its inverse.
     <!-- -->
-    makeCacheMatrix <- function(m = matrix()) {
+    `makeCacheMatrix <- function(m = matrix()) {
         m <- NULL
         set <- function(y) {
                 x <<- y
@@ -87,7 +87,7 @@ Write the following functions:
         list(set = set, get = get,
              setmean = setinverse,
              getmean = getinverse)
-}
+}`
     
         
 2.  `cacheSolve`: This function computes the inverse of the special
